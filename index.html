@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <title>Sección de Billetera - USDT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .wallet-section {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .wallet-section h2 {
+            text-align: center;
+        }
+        .wallet-section label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .wallet-section input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        .wallet-section button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .wallet-section button:hover {
+            background-color: #218838;
+        }
+        .wallet-address {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        .popup h3 {
+            margin: 0;
+        }
+        .popup button {
+            margin-top: 10px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wallet-section">
+        <h2>Agregar dirección USDT</h2>
+        
+        <div class="image-container">
+            <img id="usdtImage" src="https://cdn-icons-png.flaticon.com/256/7152/7152394.png" alt="Imagen de USDT" style="max-width: 100%; height: auto;">
+        </div>
+
+        <label for="usdtAddress">Dirección de USDT:</label>
+        <input type="text" id="usdtAddress" placeholder="Introduce tu dirección de USDT">
+
+        <button onclick="saveAddress()">Guardar dirección</button>
+
+        <div id="savedAddressContainer" class="wallet-address" style="display: none;">
+            <p><strong>Dirección guardada:</strong></p>
+            <p id="savedAddress"></p>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <h3>Dirección de USDT guardada con éxito.</h3>
+        <button onclick="closePopup()">Cerrar</button>
+    </div>
+
+    <script>
+        function saveAddress() {
+            const usdtAddress = document.getElementById('usdtAddress').value;
+            if (usdtAddress) {
+                localStorage.setItem('usdtAddress', usdtAddress);
+                displaySavedAddress();
+                openPopup();
+            } else {
+                alert('Por favor, introduce una dirección válida.');
+            }
+        }
+
+        function displaySavedAddress() {
+            const savedAddress = localStorage.getItem('usdtAddress');
+            if (savedAddress) {
+                document.getElementById('savedAddress').textContent = savedAddress;
+                document.getElementById('savedAddressContainer').style.display = 'block';
+            }
+        }
+
+        function openPopup() {
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        window.onload = function() {
+            displaySavedAddress();
+        }
+    </script>
+
+    <script>
+        // Service worker registration
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registrado con éxito:', registration);
+                })
+                .catch(function(error) {
+                    console.log('Error al registrar el Service Worker:', error);
+                });
+        }
+    </script>
+</body>
+</html>
