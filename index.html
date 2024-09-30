@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="manifest" href="manifest.json">
-    <title>Sección de Billetera - USDT</title>
+    <title>Sección de Billetera - TON</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,6 +54,7 @@
             background-color: #e9ecef;
             border-radius: 4px;
             text-align: center;
+            word-wrap: break-word; /* Asegura que el texto largo se ajuste */
         }
         .popup {
             display: none;
@@ -94,14 +94,14 @@
 <body>
 
     <div class="wallet-section">
-        <h2>Agregar dirección USDT</h2>
+        <h2>Agregar dirección TON</h2>
         
         <div class="image-container">
             <img id="usdtImage" src="https://cdn-icons-png.flaticon.com/256/7152/7152394.png" alt="Imagen de USDT" style="max-width: 100%; height: auto;">
         </div>
 
-        <label for="usdtAddress">Dirección de USDT:</label>
-        <input type="text" id="usdtAddress" placeholder="Introduce tu dirección de USDT">
+        <label for="usdtAddress">Dirección de TON:</label>
+        <input type="text" id="usdtAddress" placeholder="Introduce tu dirección de TON">
 
         <button onclick="saveAddress()">Guardar dirección</button>
 
@@ -113,7 +113,7 @@
 
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
-        <h3>Dirección de USDT guardada con éxito.</h3>
+        <h3>Dirección guardada con éxito.</h3>
         <button onclick="closePopup()">Cerrar</button>
     </div>
 
@@ -125,7 +125,6 @@
                 displaySavedAddress();
                 openPopup();
             } else {
-                alert('Por favor, introduce una dirección válida.');
             }
         }
 
@@ -152,17 +151,5 @@
         }
     </script>
 
-    <script>
-        // Service worker registration
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js')
-                .then(function(registration) {
-                    console.log('Service Worker registrado con éxito:', registration);
-                })
-                .catch(function(error) {
-                    console.log('Error al registrar el Service Worker:', error);
-                });
-        }
-    </script>
 </body>
 </html>
